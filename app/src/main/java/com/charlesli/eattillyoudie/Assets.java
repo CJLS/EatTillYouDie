@@ -10,6 +10,7 @@ public class Assets {
     public static Pixmap playButton;
     public static Pixmap highScoresButton;
     public static Pixmap helpButton;
+    public static Pixmap gameScreen;
     public static Pixmap helpScreen1;
     public static Pixmap helpScreen2;
     public static Pixmap helpScreen3;

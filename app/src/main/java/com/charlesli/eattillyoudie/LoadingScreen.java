@@ -29,6 +29,7 @@ public class LoadingScreen extends Screen {
         Assets.fish = g.newPixmap("fish.png", Graphics.PixmapFormat.ARGB4444);
         Assets.foodBanner = g.newPixmap("foodBanner.png", Graphics.PixmapFormat.ARGB4444);
         Assets.helpButton = g.newPixmap("helpButton.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.gameScreen = g.newPixmap("basicScreen.png", Graphics.PixmapFormat.ARGB4444);
         Assets.helpScreen1 = g.newPixmap("helpScreen1.png", Graphics.PixmapFormat.ARGB4444);
         Assets.helpScreen2 = g.newPixmap("helpScreen2.png", Graphics.PixmapFormat.ARGB4444);
         Assets.helpScreen3 = g.newPixmap("helpScreen3.png", Graphics.PixmapFormat.ARGB4444);

@@ -61,6 +61,16 @@ public class MainMenuScreen extends Screen {
                     game.setScreen(new HelpScreen(game, 1));
                     return;
                 }
+                else if (inBounds(event, playButtonXpos, playButtonYpos, Assets.playButton.getWidth(),
+                        Assets.playButton.getHeight())) {
+                    game.setScreen(new GameScreen(game));
+                    return;
+                }
+                else if (inBounds(event, highscoresButtonXpos, highscoresButtonYpos, Assets.highScoresButton.getWidth(),
+                        Assets.highScoresButton.getHeight())) {
+                    game.setScreen(new GameScreen(game));
+                    return;
+                }
             }
         }
     }
