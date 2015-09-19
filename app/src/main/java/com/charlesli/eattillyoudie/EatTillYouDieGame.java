@@ -9,6 +9,6 @@ import com.charlesli.androidgames.framework.impl.AndroidGame;
 public class EatTillYouDieGame extends AndroidGame {
     @Override
     public Screen getStartScreen() {
-        return null;
+        return new LoadingScreen(this);
     }
 }
