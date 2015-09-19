@@ -22,22 +22,27 @@ public class MainMenuScreen extends Screen {
     private int highscoresButtonYpos;
     private int helpButtonXpos;
     private int helpButtonYpos;
+    private int foodBannerXpos;
+    private int foodBannerYpos;
+
 
     public MainMenuScreen(Game game) {
         super(game);
         Graphics g = game.getGraphics();
         logoXpos = g.getWidth() / 2 - Assets.logo.getWidth() / 2;
-        logoYpos = Assets.logo.getHeight();
+        logoYpos = 65;
         characterXpos = g.getWidth() / 2 - Assets.character.getWidth() / 2;
-        characterYpos = g.getHeight() * 3;
+        characterYpos = 180;
         conveyorBeltXpos = 0;
-        conveyorBeltYpos = characterYpos + Assets.character.getHeight() / 2;
+        conveyorBeltYpos = 370;
         playButtonXpos = g.getWidth() / 2 - Assets.playButton.getWidth() / 2;
-        playButtonYpos = characterYpos + Assets.character.getHeight() + Assets.playButton.getHeight() / 2;
+        playButtonYpos = 590;
         highscoresButtonXpos = g.getWidth() / 2 - Assets.highScoresButton.getWidth() / 2;
         highscoresButtonYpos = playButtonYpos + Assets.playButton.getHeight() * 3 / 2;
         helpButtonXpos = g.getWidth() / 2 - Assets.helpButton.getWidth() / 2;
         helpButtonYpos = highscoresButtonYpos + Assets.highScoresButton.getHeight() * 3 / 2;
+        foodBannerXpos = 0;
+        foodBannerYpos = 375;
     }
 
     @Override
@@ -53,6 +58,7 @@ public class MainMenuScreen extends Screen {
         g.drawPixmap(Assets.logo, logoXpos, logoYpos);
         g.drawPixmap(Assets.character, characterXpos, characterYpos);
         g.drawPixmap(Assets.conveyorBelt, conveyorBeltXpos, conveyorBeltYpos);
+        g.drawPixmap(Assets.foodBanner, foodBannerXpos, foodBannerYpos);
         g.drawPixmap(Assets.playButton, playButtonXpos, playButtonYpos);
         g.drawPixmap(Assets.highScoresButton, highscoresButtonXpos, highscoresButtonYpos);
         g.drawPixmap(Assets.helpButton, helpButtonXpos, helpButtonYpos);

@@ -9,6 +9,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".EatTillYouDieGame"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_eat_till_you_die_game"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>

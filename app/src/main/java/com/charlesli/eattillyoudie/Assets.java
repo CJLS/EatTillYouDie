@@ -20,6 +20,7 @@ public class Assets {
     public static Pixmap character;
     public static Pixmap conveyorBelt;
     public static Pixmap logo;
+    public static Pixmap foodBanner;
     public static Pixmap asparagus;
     public static Pixmap banana;
     public static Pixmap burger;
