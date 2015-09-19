@@ -14,6 +14,7 @@ public class Assets {
     public static Pixmap helpScreen1;
     public static Pixmap helpScreen2;
     public static Pixmap helpScreen3;
+    public static Pixmap highScoresScreen;
     public static Pixmap nextButton;
     public static Pixmap cancelButton;
     public static Pixmap backButton;
@@ -35,4 +36,5 @@ public class Assets {
     public static Pixmap steak;
     public static Pixmap sushi;
     public static Pixmap watermelon;
+    public static Pixmap numbers;
 }

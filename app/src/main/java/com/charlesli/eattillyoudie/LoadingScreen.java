@@ -34,8 +34,10 @@ public class LoadingScreen extends Screen {
         Assets.helpScreen2 = g.newPixmap("helpScreen2.png", Graphics.PixmapFormat.ARGB4444);
         Assets.helpScreen3 = g.newPixmap("helpScreen3.png", Graphics.PixmapFormat.ARGB4444);
         Assets.highScoresButton = g.newPixmap("highscoresButton.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.highScoresScreen = g.newPixmap("highScoresScreen.png", Graphics.PixmapFormat.ARGB4444);
         Assets.iceCream = g.newPixmap("iceCream.png", Graphics.PixmapFormat.ARGB4444);
         Assets.logo = g.newPixmap("logo.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.numbers = g.newPixmap("numbers.png", Graphics.PixmapFormat.ARGB4444);
         Assets.nextButton = g.newPixmap("nextButton.png", Graphics.PixmapFormat.ARGB4444);
         Assets.pizza = g.newPixmap("pizza.png", Graphics.PixmapFormat.ARGB4444);
         Assets.playButton = g.newPixmap("playButton.png", Graphics.PixmapFormat.ARGB4444);

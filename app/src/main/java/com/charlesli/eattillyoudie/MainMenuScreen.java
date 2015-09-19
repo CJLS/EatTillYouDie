@@ -68,7 +68,7 @@ public class MainMenuScreen extends Screen {
                 }
                 else if (inBounds(event, highscoresButtonXpos, highscoresButtonYpos, Assets.highScoresButton.getWidth(),
                         Assets.highScoresButton.getHeight())) {
-                    game.setScreen(new GameScreen(game));
+                    game.setScreen(new HighScoresScreen(game));
                     return;
                 }
             }
