@@ -33,6 +33,7 @@ public class LoadingScreen extends Screen {
         Assets.steak = g.newPixmap("steak.png", Graphics.PixmapFormat.ARGB4444);
         Assets.sushi = g.newPixmap("sushi.png", Graphics.PixmapFormat.ARGB4444);
         Assets.watermelon = g.newPixmap("watermelon.png", Graphics.PixmapFormat.ARGB4444);
+        game.setScreen(new MainMenuScreen(game));
     }
 
     @Override
