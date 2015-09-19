@@ -2,8 +2,11 @@ package com.charlesli.eattillyoudie;
 
 import com.charlesli.androidgames.framework.Game;
 import com.charlesli.androidgames.framework.Graphics;
+import com.charlesli.androidgames.framework.Input;
 import com.charlesli.androidgames.framework.Screen;
 import com.charlesli.androidgames.framework.Input.TouchEvent;
+
+import java.util.List;
 
 /**
  * Created by Li on 2015/9/18.
@@ -47,7 +50,19 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
+        List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
+        int len = touchEvents.size();
+        for (int i = 0; i < len; i++) {
+            Input.TouchEvent event = touchEvents.get(i);
+            if (event.type == TouchEvent.TOUCH_UP) {
+                if (inBounds(event, helpButtonXpos, helpButtonYpos, Assets.helpButton.getWidth(),
+                        Assets.helpButton.getHeight())) {
+                    game.setScreen(new HelpScreen(game, 1));
+                    return;
+                }
+            }
+        }
     }
 
     @Override

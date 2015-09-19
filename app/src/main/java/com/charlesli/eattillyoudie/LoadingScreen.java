@@ -17,9 +17,11 @@ public class LoadingScreen extends Screen {
     public void update(float deltaTime) {
         Graphics g = game.getGraphics();
         Assets.asparagus = g.newPixmap("asparagus.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.backButton = g.newPixmap("backButton.png", Graphics.PixmapFormat.ARGB4444);
         Assets.background = g.newPixmap("backgroundSky.png", Graphics.PixmapFormat.RGB565);
         Assets.banana = g.newPixmap("banana.png", Graphics.PixmapFormat.ARGB4444);
         Assets.burger = g.newPixmap("burger.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.cancelButton = g.newPixmap("cancelButton.png", Graphics.PixmapFormat.ARGB4444);
         Assets.carrot = g.newPixmap("carrot.png", Graphics.PixmapFormat.ARGB4444);
         Assets.character = g.newPixmap("character.png", Graphics.PixmapFormat.ARGB4444);
         Assets.chocolate = g.newPixmap("chocolate.png", Graphics.PixmapFormat.ARGB4444);
@@ -27,9 +29,13 @@ public class LoadingScreen extends Screen {
         Assets.fish = g.newPixmap("fish.png", Graphics.PixmapFormat.ARGB4444);
         Assets.foodBanner = g.newPixmap("foodBanner.png", Graphics.PixmapFormat.ARGB4444);
         Assets.helpButton = g.newPixmap("helpButton.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.helpScreen1 = g.newPixmap("helpScreen1.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.helpScreen2 = g.newPixmap("helpScreen2.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.helpScreen3 = g.newPixmap("helpScreen3.png", Graphics.PixmapFormat.ARGB4444);
         Assets.highScoresButton = g.newPixmap("highscoresButton.png", Graphics.PixmapFormat.ARGB4444);
         Assets.iceCream = g.newPixmap("iceCream.png", Graphics.PixmapFormat.ARGB4444);
         Assets.logo = g.newPixmap("logo.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.nextButton = g.newPixmap("nextButton.png", Graphics.PixmapFormat.ARGB4444);
         Assets.pizza = g.newPixmap("pizza.png", Graphics.PixmapFormat.ARGB4444);
         Assets.playButton = g.newPixmap("playButton.png", Graphics.PixmapFormat.ARGB4444);
         Assets.steak = g.newPixmap("steak.png", Graphics.PixmapFormat.ARGB4444);

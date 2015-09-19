@@ -10,10 +10,12 @@ public class Assets {
     public static Pixmap playButton;
     public static Pixmap highScoresButton;
     public static Pixmap helpButton;
+    public static Pixmap helpScreen1;
+    public static Pixmap helpScreen2;
+    public static Pixmap helpScreen3;
     public static Pixmap nextButton;
     public static Pixmap cancelButton;
     public static Pixmap backButton;
-    public static Pixmap pauseButton;
     public static Pixmap hearts;
     public static Pixmap timeBar;
     public static Pixmap wishList;
