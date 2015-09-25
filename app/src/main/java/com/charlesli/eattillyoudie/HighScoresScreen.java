@@ -42,12 +42,12 @@ public class HighScoresScreen extends Screen {
     @Override
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
-        g.drawPixmap(Assets.highScoresScreen, 0, 0);
+        g.drawPixmap(Assets.highScoresScreenFood, 0, 0);
 
-        int y = 100;
+        int y = 190;
         for (int i = 0; i < 5; i++) {
-            drawText(g, lines[i], 20, y);
-            y += 50;
+            drawText(g, lines[i], 540, y);
+            y += 90;
         }
 
         g.drawPixmap(Assets.cancelButton, 1150, 700);
@@ -84,21 +84,21 @@ public class HighScoresScreen extends Screen {
             char character = line.charAt(i);
 
             if (character == ' ') {
-                x += 20;
+                x += 40;
                 continue;
             }
 
             int srcX = 0;
             int srcWidth = 0;
             if (character == '.') {
-                srcX = 200;
-                srcWidth = 10;
-            } else {
-                srcX = (character - '0') * 20;
+                srcX = 400;
                 srcWidth = 20;
+            } else {
+                srcX = (character - '0') * 40;
+                srcWidth = 40;
             }
 
-            g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 30);
+            g.drawPixmap(Assets.numbersBig, x, y, srcX, 0, srcWidth, 60);
             x += srcWidth;
         }
     }
