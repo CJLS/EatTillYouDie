@@ -39,4 +39,5 @@ public class Assets {
     public static Pixmap watermelon;
     public static Pixmap numbers;
     public static Pixmap numbersBig;
+    public static Pixmap heart;
 }

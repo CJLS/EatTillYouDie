@@ -18,6 +18,7 @@ import com.charlesli.eattillyoudie.fooditems.Sushi;
 import com.charlesli.eattillyoudie.fooditems.Watermelon;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -69,7 +70,6 @@ public class GameScreen extends Screen {
     public void update(float deltaTime) {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         updateRunning(touchEvents, deltaTime);
-
     }
 
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
@@ -80,46 +80,143 @@ public class GameScreen extends Screen {
         if (foodTime > foodTimeCutOff) {
             int food = mRandom.nextInt(11);
             if (food == ASPARAGUS) {
-                foodList.add(new Asparagus(1280, 550, 50));
+                foodList.add(new Asparagus(1200, 550, 50));
             }
             else if (food == BANANA) {
-                foodList.add(new Banana(1280, 550, 50));
+                foodList.add(new Banana(1200, 550, 50));
             }
             else if (food == BURGER) {
-                foodList.add(new Burger(1280, 550, 50));
+                foodList.add(new Burger(1200, 550, 50));
             }
             else if (food == CARROT) {
-                foodList.add(new Carrot(1280, 550, 50));
+                foodList.add(new Carrot(1200, 550, 50));
             }
             else if (food == CHOCOLATE) {
-                foodList.add(new Chocolate(1280, 550, 50));
+                foodList.add(new Chocolate(1200, 550, 50));
             }
             else if (food == FISH) {
-                foodList.add(new Fish(1280, 550, 50));
+                foodList.add(new Fish(1200, 550, 50));
             }
             else if (food == ICECREAM) {
-                foodList.add(new IceCream(1280, 550, 50));
+                foodList.add(new IceCream(1200, 550, 50));
             }
             else if (food == PIZZA) {
-                foodList.add(new Pizza(1280, 550, 50));
+                foodList.add(new Pizza(1200, 550, 50));
             }
             else if (food == STEAK) {
-                foodList.add(new Steak(1280, 550, 50));
+                foodList.add(new Steak(1200, 550, 50));
             }
             else if (food == SUSHI) {
-                foodList.add(new Sushi(1280, 550, 50));
+                foodList.add(new Sushi(1200, 550, 50));
             }
             else if (food == WATERMELON) {
-                foodList.add(new Watermelon(1280, 550, 50));
+                foodList.add(new Watermelon(1200, 550, 50));
             }
-
+            foodTime = 0;
+            foodTimeCutOff = 3;
         }
+
+        // Update Food items location
+        for (int i = 0; i < foodList.size(); i++) {
+            foodList.get(i).update(deltaTime);
+        }
+
+        // Check if Food items are clicked
+        Iterator<Food> foodIterator = foodList.iterator();
+        while (foodIterator.hasNext()) {
+            Food foodItem = foodIterator.next();
+            for(int i = 0; i < len; i++) {
+                TouchEvent event = touchEvents.get(i);
+                if(event.type == TouchEvent.TOUCH_UP) {
+                    // FIX THIS
+                    if(inBounds(event, 50, 50, 50, 50)) {
+                        foodIterator.remove();
+                        score += 10;
+                    }
+                }
+            }
+        }
+
+        // Temporary: Go back to main menu
+        for(int i = 0; i < len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(inBounds(event, 0, 0, 50, 50)) {
+                    game.setScreen(new MainMenuScreen(game));
+                }
+            }
+        }
+
+        // check Food item out of play
+        Iterator<Food> foodIterator2 = foodList.iterator();
+        while (foodIterator2.hasNext()) {
+            Food foodItem = foodIterator2.next();
+
+            if (foodItem.x < 0) {
+                foodIterator2.remove();
+                numberOfLives--;
+                if(numberOfLives == 0) {
+                    Settings.addScore(score);
+                    Settings.save(game.getFileIO());
+                }
+            }
+        }
+    }
+
+    private boolean inBounds(TouchEvent event,
+                             int x, int y,
+                             int width, int height) {
+        if(event.x > x && event.x < x + width - 1 &&
+                event.y > y && event.y < y + height - 1)
+            return true;
+        else
+            return false;
     }
 
     @Override
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
         g.drawPixmap(Assets.gameScreen, 0, 0);
+        drawWorld();
+
+        drawText(g, score + "", 1150,  25);
+    }
+
+    private void drawWorld() {
+        Graphics g = game.getGraphics();
+        for (int i = 0; i < foodList.size(); i++) {
+            g.drawPixmap(Assets.watermelon, (int) foodList.get(i).x, (int) foodList.get(i).y);
+        }
+        for(int i = 0; i < this.numberOfLives; i++) {
+            int x = 50 + Assets.heart.getWidth() * i;
+            int y = 20;
+            g.drawPixmap(Assets.heart, x, y);
+        }
+    }
+
+    public void drawText(Graphics g, String line, int x, int y) {
+        int len = line.length();
+        for (int i = 0; i < len; i++) {
+            char character = line.charAt(i);
+
+            if (character == ' ') {
+                x += 20;
+                continue;
+            }
+
+            int srcX = 0;
+            int srcWidth = 0;
+            if (character == '.') {
+                srcX = 200;
+                srcWidth = 10;
+            } else {
+                srcX = (character - '0') * 20;
+                srcWidth = 20;
+            }
+
+            g.drawPixmap(Assets.numbers, x, y, srcX, 0, srcWidth, 30);
+            x += srcWidth;
+        }
     }
 
     @Override
@@ -136,4 +233,5 @@ public class GameScreen extends Screen {
     public void dispose() {
 
     }
+
 }
