@@ -1,9 +1,8 @@
 package com.charlesli.eattillyoudie;
 
-import android.util.Log;
-
 import com.charlesli.androidgames.framework.Game;
 import com.charlesli.androidgames.framework.Graphics;
+import com.charlesli.androidgames.framework.Input;
 import com.charlesli.androidgames.framework.Input.TouchEvent;
 import com.charlesli.androidgames.framework.Screen;
 import com.charlesli.eattillyoudie.fooditems.Asparagus;
@@ -29,6 +28,15 @@ import java.util.TreeSet;
  * Created by Li on 2015/9/19.
  */
 public class GameScreen extends Screen {
+
+    enum GameState {
+        Ready,
+        Running,
+        Paused,
+        GameOver
+    }
+
+    GameState state = GameState.Ready;
 
     private int score = 0;
     private int numberOfLives = 3;
@@ -74,7 +82,19 @@ public class GameScreen extends Screen {
     @Override
     public void update(float deltaTime) {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-        updateRunning(touchEvents, deltaTime);
+        if(state == GameState.Ready)
+            updateReady(touchEvents);
+        if(state == GameState.Running)
+            updateRunning(touchEvents, deltaTime);
+        if(state == GameState.Paused)
+            updatePaused(touchEvents);
+        if(state == GameState.GameOver)
+            updateGameOver(touchEvents);
+    }
+
+    private void updateReady(List<TouchEvent> touchEvents) {
+        if(touchEvents.size() > 0)
+            state = GameState.Running;
     }
 
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
@@ -82,7 +102,7 @@ public class GameScreen extends Screen {
         int len = touchEvents.size();
         starvingTimeCurrent -= deltaTime;
         if (starvingTimeCurrent <= 0) {
-            game.setScreen(new MainMenuScreen(game));
+            state = GameState.GameOver;
         }
 
         if (score >= 4000) {
@@ -140,8 +160,8 @@ public class GameScreen extends Screen {
                     if(inBounds(event, foodItem.x, foodItem.y, 75, 75)) {
                         for (int j = 0; j < toEatList.size(); j++) {
                             if (foodItem.getClass() == toEatList.get(j).getClass()) {
-                                if (starvingTimeCurrent < starvingTimeMax - 3) {
-                                    starvingTimeCurrent += 3;
+                                if (starvingTimeCurrent < starvingTimeMax - 2) {
+                                    starvingTimeCurrent += 2;
                                 }
                                 else {
                                     starvingTimeCurrent = starvingTimeMax;
@@ -156,11 +176,10 @@ public class GameScreen extends Screen {
                             else if (j == toEatList.size() - 1) {
                                 numberOfLives--;
                                 // Check if no hearts left
-                                if(numberOfLives == 0) {
+                                if(numberOfLives <= 0) {
+                                    state = GameState.GameOver;
                                     Settings.addScore(score);
                                     Settings.save(game.getFileIO());
-                                    game.setScreen(new MainMenuScreen(game));
-                                    return;
                                 }
                             }
                         }
@@ -176,12 +195,12 @@ public class GameScreen extends Screen {
         }
 
 
-        // Temporary: Go back to main menu
+        // Pressed on Pause Buton
         for(int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {
-                if(inBounds(event, 0, 0, 50, 50)) {
-                    game.setScreen(new MainMenuScreen(game));
+                if(inBounds(event, 1170, 730, 55, 55)) {
+                    state = GameState.Paused;
                 }
             }
         }
@@ -193,6 +212,36 @@ public class GameScreen extends Screen {
 
             if (foodItem.x < 0) {
                 foodIterator2.remove();
+            }
+        }
+    }
+
+    private void updatePaused(List<TouchEvent> touchEvents) {
+        int len = touchEvents.size();
+        for(int i = 0; i < len; i++) {
+            TouchEvent event = touchEvents.get(i);
+            if(event.type == TouchEvent.TOUCH_UP) {
+                if(event.x > 465 && event.x <= 810) {
+                    if(event.y > 290 && event.y <= 360) {
+                        state = GameState.Running;
+                        return;
+                    }
+                    if(event.y > 390 && event.y < 485) {
+                        game.setScreen(new MainMenuScreen(game));
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void updateGameOver(List<TouchEvent> touchEvents) {
+        int len = touchEvents.size();
+        for (int i = 0; i < len; i++) {
+            Input.TouchEvent event = touchEvents.get(i);
+            if (event.type == TouchEvent.TOUCH_DOWN) {
+                game.setScreen(new MainMenuScreen(game));
+                return;
             }
         }
     }
@@ -282,17 +331,47 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         g.drawPixmap(Assets.gameScreen, 0, 0);
         g.drawPixmap(Assets.timeBar, 260, 17);
-        g.drawPixmap(Assets.timeBarFull, 260, 17, 0, 0, (int) (Math.min(starvingTimeCurrent/starvingTimeMax, 1) *
-                Assets.timeBarFull.getWidth()), Assets.timeBarFull.getHeight());
-        drawWorld();
+        if(state == GameState.Ready) {
+            drawReadyUI();
+        }
+        if(state == GameState.Running) {
+            drawRunningUI();
+            drawWorld();
+            g.drawPixmap(Assets.timeBarFull, 260, 17, 0, 0, (int) (Math.min(starvingTimeCurrent / starvingTimeMax, 1) *
+                    Assets.timeBarFull.getWidth()), Assets.timeBarFull.getHeight());
+            drawText(g, score + "", 1150,  25);
+        }
+        if(state == GameState.Paused) {
+            drawPausedUI();
+        }
+        if(state == GameState.GameOver) {
+            drawGameOverUI();
+        }
+    }
 
-        drawText(g, score + "", 1150,  25);
+    private void drawReadyUI() {
+        Graphics g = game.getGraphics();
+        g.drawPixmap(Assets.ready, 0, 0);
+    }
+
+    private void drawRunningUI() {
+        Graphics g = game.getGraphics();
+        g.drawPixmap(Assets.pauseButton, 1170, 730);
+    }
+
+    private void drawPausedUI() {
+        Graphics g = game.getGraphics();
+        g.drawPixmap(Assets.resumeQuit, 465, 290);
+    }
+
+    private void drawGameOverUI() {
+        Graphics g = game.getGraphics();
+        g.drawPixmap(Assets.gameOver, 390, 310);
     }
 
     private void drawWorld() {
         Graphics g = game.getGraphics();
         drawFood(g, toEatList);
-        Log.d("GameScreen.java", toEatList.size() + "");
         drawFood(g, foodList);
         for(int i = 0; i < this.numberOfLives; i++) {
             int x = 50 + Assets.heart.getWidth() * i;

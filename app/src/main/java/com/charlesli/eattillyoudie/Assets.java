@@ -10,6 +10,7 @@ public class Assets {
     public static Pixmap playButton;
     public static Pixmap highScoresButton;
     public static Pixmap helpButton;
+    public static Pixmap pauseButton;
     public static Pixmap gameScreen;
     public static Pixmap helpScreen1;
     public static Pixmap helpScreen2;
@@ -39,4 +40,7 @@ public class Assets {
     public static Pixmap numbers;
     public static Pixmap numbersBig;
     public static Pixmap heart;
+    public static Pixmap ready;
+    public static Pixmap resumeQuit;
+    public static Pixmap gameOver;
 }
