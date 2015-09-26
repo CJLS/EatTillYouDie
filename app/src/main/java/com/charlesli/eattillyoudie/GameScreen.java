@@ -237,7 +237,7 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         g.drawPixmap(Assets.gameScreen, 0, 0);
         g.drawPixmap(Assets.timeBar, 260, 17);
-        g.drawPixmap(Assets.timeBarFull, 260, 17, 0, 0, (int) (starvingTimeCurrent/starvingTimeMax *
+        g.drawPixmap(Assets.timeBarFull, 260, 17, 0, 0, (int) (Math.min(starvingTimeCurrent/starvingTimeMax, 1) *
                 Assets.timeBarFull.getWidth()), Assets.timeBarFull.getHeight());
         drawWorld();
 
