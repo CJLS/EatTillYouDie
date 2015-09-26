@@ -124,9 +124,9 @@ public class GameScreen extends Screen {
 
         foodTime += deltaTime;
         if (foodTime > foodTimeCutOff) {
-            addFoodRandomToList(foodList, 11, 1200, 540, 100);
+            addFoodRandomToList(foodList, 11, 1200, 540, 120);
             foodTime = 0;
-            foodTimeCutOff = (float) 1.5;
+            foodTimeCutOff = 1;
         }
 
 
@@ -140,8 +140,8 @@ public class GameScreen extends Screen {
                     if(inBounds(event, foodItem.x, foodItem.y, 75, 75)) {
                         for (int j = 0; j < toEatList.size(); j++) {
                             if (foodItem.getClass() == toEatList.get(j).getClass()) {
-                                if (starvingTimeCurrent < starvingTimeMax - 5) {
-                                    starvingTimeCurrent += 5;
+                                if (starvingTimeCurrent < starvingTimeMax - 3) {
+                                    starvingTimeCurrent += 3;
                                 }
                                 else {
                                     starvingTimeCurrent = starvingTimeMax;
