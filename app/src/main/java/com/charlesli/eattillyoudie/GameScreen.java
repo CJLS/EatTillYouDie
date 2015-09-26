@@ -31,7 +31,8 @@ public class GameScreen extends Screen {
 
     private int score = 0;
     private int numberOfLives = 3;
-    private int starvingTime = 100;
+    private float starvingTimeMax = 100;
+    private float starvingTimeCurrent = 100;
     private float foodTime = 0;
     private float foodTimeCutOff = 0;
 
@@ -70,12 +71,16 @@ public class GameScreen extends Screen {
     private void updateRunning(List<TouchEvent> touchEvents, float deltaTime) {
         Graphics g = game.getGraphics();
         int len = touchEvents.size();
+        starvingTimeCurrent -= deltaTime;
+        if (starvingTimeCurrent <= 0) {
+            game.setScreen(new MainMenuScreen(game));
+        }
 
         foodTime += deltaTime;
         if (foodTime > foodTimeCutOff) {
-            addFoodToList(foodList, 11, 1200, 540, 50);
+            addFoodToList(foodList, 11, 1200, 540, 80);
             foodTime = 0;
-            foodTimeCutOff = 3;
+            foodTimeCutOff = 2;
         }
 
         // Update Food items location
@@ -187,6 +192,8 @@ public class GameScreen extends Screen {
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
         g.drawPixmap(Assets.gameScreen, 0, 0);
+        g.drawPixmap(Assets.timeBar, 260, 17);
+        g.drawPixmap(Assets.timeBarFull, 260, 17, 0, 0, (int) (starvingTimeCurrent/starvingTimeMax * Assets.timeBarFull.getWidth()), Assets.timeBarFull.getHeight());
         drawWorld();
 
         drawText(g, score + "", 1150,  25);

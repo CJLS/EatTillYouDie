@@ -19,9 +19,8 @@ public class Assets {
     public static Pixmap nextButton;
     public static Pixmap cancelButton;
     public static Pixmap backButton;
-    public static Pixmap hearts;
     public static Pixmap timeBar;
-    public static Pixmap wishList;
+    public static Pixmap timeBarFull;
     public static Pixmap character;
     public static Pixmap conveyorBelt;
     public static Pixmap logo;

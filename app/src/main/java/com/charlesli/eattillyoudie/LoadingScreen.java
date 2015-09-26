@@ -46,6 +46,8 @@ public class LoadingScreen extends Screen {
         Assets.playButton = g.newPixmap("playButton.png", Graphics.PixmapFormat.ARGB4444);
         Assets.steak = g.newPixmap("steak.png", Graphics.PixmapFormat.ARGB4444);
         Assets.sushi = g.newPixmap("sushi.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.timeBar = g.newPixmap("timeBar.png", Graphics.PixmapFormat.ARGB4444);
+        Assets.timeBarFull = g.newPixmap("timeBarFull.png", Graphics.PixmapFormat.ARGB4444);
         Assets.watermelon = g.newPixmap("watermelon.png", Graphics.PixmapFormat.ARGB4444);
         game.setScreen(new MainMenuScreen(game));
     }
