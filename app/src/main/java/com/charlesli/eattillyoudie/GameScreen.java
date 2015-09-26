@@ -30,8 +30,8 @@ public class GameScreen extends Screen {
     private int score = 0;
     private int numberOfLives = 3;
     private int starvingTime = 100;
-    private int foodTime = 0;
-    private int foodTimeCutOff;
+    private float foodTime = 0;
+    private float foodTimeCutOff = 0;
 
     private Random mRandom = new Random();
 
@@ -80,37 +80,37 @@ public class GameScreen extends Screen {
         if (foodTime > foodTimeCutOff) {
             int food = mRandom.nextInt(11);
             if (food == ASPARAGUS) {
-                foodList.add(new Asparagus(1200, 550, 50));
+                foodList.add(new Asparagus(1200, 540, 50));
             }
             else if (food == BANANA) {
-                foodList.add(new Banana(1200, 550, 50));
+                foodList.add(new Banana(1200, 540, 50));
             }
             else if (food == BURGER) {
-                foodList.add(new Burger(1200, 550, 50));
+                foodList.add(new Burger(1200, 540, 50));
             }
             else if (food == CARROT) {
-                foodList.add(new Carrot(1200, 550, 50));
+                foodList.add(new Carrot(1200, 540, 50));
             }
             else if (food == CHOCOLATE) {
-                foodList.add(new Chocolate(1200, 550, 50));
+                foodList.add(new Chocolate(1200, 540, 50));
             }
             else if (food == FISH) {
-                foodList.add(new Fish(1200, 550, 50));
+                foodList.add(new Fish(1200, 540, 50));
             }
             else if (food == ICECREAM) {
-                foodList.add(new IceCream(1200, 550, 50));
+                foodList.add(new IceCream(1200, 540, 50));
             }
             else if (food == PIZZA) {
-                foodList.add(new Pizza(1200, 550, 50));
+                foodList.add(new Pizza(1200, 540, 50));
             }
             else if (food == STEAK) {
-                foodList.add(new Steak(1200, 550, 50));
+                foodList.add(new Steak(1200, 540, 50));
             }
             else if (food == SUSHI) {
-                foodList.add(new Sushi(1200, 550, 50));
+                foodList.add(new Sushi(1200, 540, 50));
             }
             else if (food == WATERMELON) {
-                foodList.add(new Watermelon(1200, 550, 50));
+                foodList.add(new Watermelon(1200, 540, 50));
             }
             foodTime = 0;
             foodTimeCutOff = 3;
@@ -129,7 +129,7 @@ public class GameScreen extends Screen {
                 TouchEvent event = touchEvents.get(i);
                 if(event.type == TouchEvent.TOUCH_UP) {
                     // FIX THIS
-                    if(inBounds(event, 50, 50, 50, 50)) {
+                    if(inBounds(event, 500, 500, 50, 50)) {
                         foodIterator.remove();
                         score += 10;
                     }
@@ -185,7 +185,39 @@ public class GameScreen extends Screen {
     private void drawWorld() {
         Graphics g = game.getGraphics();
         for (int i = 0; i < foodList.size(); i++) {
-            g.drawPixmap(Assets.watermelon, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            if (foodList.get(i) instanceof Asparagus) {
+                g.drawPixmap(Assets.asparagus, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Banana) {
+                g.drawPixmap(Assets.banana, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Burger) {
+                g.drawPixmap(Assets.burger, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Carrot) {
+                g.drawPixmap(Assets.carrot, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Chocolate) {
+                g.drawPixmap(Assets.chocolate, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Fish) {
+                g.drawPixmap(Assets.fish, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof IceCream) {
+                g.drawPixmap(Assets.iceCream, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Pizza) {
+                g.drawPixmap(Assets.pizza, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Steak) {
+                g.drawPixmap(Assets.steak, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Sushi) {
+                g.drawPixmap(Assets.sushi, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
+            else if (foodList.get(i) instanceof Watermelon) {
+                g.drawPixmap(Assets.watermelon, (int) foodList.get(i).x, (int) foodList.get(i).y);
+            }
         }
         for(int i = 0; i < this.numberOfLives; i++) {
             int x = 50 + Assets.heart.getWidth() * i;

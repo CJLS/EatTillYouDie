@@ -3,7 +3,7 @@ package com.charlesli.eattillyoudie.fooditems;
 /**
  * Created by Li on 2015/9/25.
  */
-public class Food {
+public abstract class Food {
     public float x, y;
     public float speed;
 
