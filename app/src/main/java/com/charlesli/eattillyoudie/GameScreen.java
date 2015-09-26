@@ -102,6 +102,13 @@ public class GameScreen extends Screen {
                             }
                             else if (j == toEatList.size() - 1) {
                                 numberOfLives--;
+                                // Check if no hearts left
+                                if(numberOfLives == 0) {
+                                    Settings.addScore(score);
+                                    Settings.save(game.getFileIO());
+                                    game.setScreen(new MainMenuScreen(game));
+                                    return;
+                                }
                             }
                         }
                         foodIterator.remove();
@@ -110,13 +117,6 @@ public class GameScreen extends Screen {
             }
         }
 
-        // Update toEatList
-        if (toEatList.size() == 0) {
-            addFoodToList(toEatList, 11, 440, 190, 0);
-            addFoodToList(toEatList, 11, 590, 190, 0);
-            addFoodToList(toEatList, 11, 740, 190, 0);
-            addFoodToList(toEatList, 11, 890, 190, 0);
-        }
 
         // Temporary: Go back to main menu
         for(int i = 0; i < len; i++) {
@@ -135,10 +135,6 @@ public class GameScreen extends Screen {
 
             if (foodItem.x < 0) {
                 foodIterator2.remove();
-                if(numberOfLives == 0) {
-                    Settings.addScore(score);
-                    Settings.save(game.getFileIO());
-                }
             }
         }
     }
