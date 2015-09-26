@@ -31,8 +31,8 @@ public class GameScreen extends Screen {
 
     private int score = 0;
     private int numberOfLives = 3;
-    private float starvingTimeMax = 100;
-    private float starvingTimeCurrent = 100;
+    private float starvingTimeMax = 50;
+    private float starvingTimeCurrent = 50;
     private float foodTime = 0;
     private float foodTimeCutOff = 0;
 
@@ -76,17 +76,50 @@ public class GameScreen extends Screen {
             game.setScreen(new MainMenuScreen(game));
         }
 
-        foodTime += deltaTime;
-        if (foodTime > foodTimeCutOff) {
-            addFoodToList(foodList, 11, 1200, 540, 80);
-            foodTime = 0;
-            foodTimeCutOff = 2;
+        if (score >= 4000) {
+            starvingTimeMax = 20;
+        }
+        else if (score >= 3000) {
+            starvingTimeMax = 23;
+        }
+        else if (score >= 2500) {
+            starvingTimeMax = 25;
+        }
+        else if (score >= 2000) {
+            starvingTimeMax = 28;
+        }
+        else if (score >= 1500) {
+            starvingTimeMax = 30;
+        }
+        else if (score >= 1000) {
+            starvingTimeMax = 33;
+        }
+        else if (score >= 800) {
+            starvingTimeMax = 35;
+        }
+        else if (score >= 600) {
+            starvingTimeMax = 38;
+        }
+        else if (score >= 400) {
+            starvingTimeMax = 40;
+        }
+        else if (score >= 300) {
+            starvingTimeMax = 43;
+        }
+        else if (score >= 200) {
+            starvingTimeMax = 45;
+        }
+        else if (score >= 100) {
+            starvingTimeMax = 48;
         }
 
-        // Update Food items location
-        for (int i = 0; i < foodList.size(); i++) {
-            foodList.get(i).update(deltaTime);
+        foodTime += deltaTime;
+        if (foodTime > foodTimeCutOff) {
+            addFoodToList(foodList, 11, 1200, 540, 100);
+            foodTime = 0;
+            foodTimeCutOff = (float) 1.5;
         }
+
 
         // Check if Food items are clicked
         Iterator<Food> foodIterator = foodList.iterator();
@@ -98,6 +131,12 @@ public class GameScreen extends Screen {
                     if(inBounds(event, foodItem.x, foodItem.y, 75, 75)) {
                         for (int j = 0; j < toEatList.size(); j++) {
                             if (foodItem.getClass() == toEatList.get(j).getClass()) {
+                                if (starvingTimeCurrent < starvingTimeMax - 5) {
+                                    starvingTimeCurrent += 5;
+                                }
+                                else {
+                                    starvingTimeCurrent = starvingTimeMax;
+                                }
                                 score += 10;
                                 int xPos = (int) toEatList.get(j).x;
                                 int yPos = (int) toEatList.get(j).y;
@@ -120,6 +159,11 @@ public class GameScreen extends Screen {
                     }
                 }
             }
+        }
+
+        // Update Food items location
+        for (int i = 0; i < foodList.size(); i++) {
+            foodList.get(i).update(deltaTime);
         }
 
 
@@ -193,7 +237,8 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         g.drawPixmap(Assets.gameScreen, 0, 0);
         g.drawPixmap(Assets.timeBar, 260, 17);
-        g.drawPixmap(Assets.timeBarFull, 260, 17, 0, 0, (int) (starvingTimeCurrent/starvingTimeMax * Assets.timeBarFull.getWidth()), Assets.timeBarFull.getHeight());
+        g.drawPixmap(Assets.timeBarFull, 260, 17, 0, 0, (int) (starvingTimeCurrent/starvingTimeMax *
+                Assets.timeBarFull.getWidth()), Assets.timeBarFull.getHeight());
         drawWorld();
 
         drawText(g, score + "", 1150,  25);
