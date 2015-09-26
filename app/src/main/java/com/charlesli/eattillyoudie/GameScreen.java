@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.TreeSet;
 
 /**
  * Created by Li on 2015/9/19.
@@ -37,6 +38,7 @@ public class GameScreen extends Screen {
     private float foodTimeCutOff = 0;
 
     private Random mRandom = new Random();
+    private TreeSet<Integer> foodSet = new TreeSet<Integer>();
 
     ArrayList<Food> foodList = new ArrayList<Food>();
     ArrayList<Food> toEatList = new ArrayList<Food>();
@@ -56,10 +58,17 @@ public class GameScreen extends Screen {
 
     public GameScreen(Game game) {
         super(game);
-        addFoodToList(toEatList, 11, 440, 190, 0);
-        addFoodToList(toEatList, 11, 590, 190, 0);
-        addFoodToList(toEatList, 11, 740, 190, 0);
-        addFoodToList(toEatList, 11, 890, 190, 0);
+        while (foodSet.size() < 4) {
+            int food = mRandom.nextInt(11);
+            foodSet.add(food);
+        }
+        int foodCount = 0;
+        for (Integer aFoodSet : foodSet) {
+            if (foodCount < foodSet.size()) {
+                addFoodSpecificToList(toEatList, aFoodSet, 440 + 150 * foodCount, 190, 0);
+            }
+            foodCount++;
+        }
     }
 
     @Override
@@ -115,7 +124,7 @@ public class GameScreen extends Screen {
 
         foodTime += deltaTime;
         if (foodTime > foodTimeCutOff) {
-            addFoodToList(foodList, 11, 1200, 540, 100);
+            addFoodRandomToList(foodList, 11, 1200, 540, 100);
             foodTime = 0;
             foodTimeCutOff = (float) 1.5;
         }
@@ -141,7 +150,7 @@ public class GameScreen extends Screen {
                                 int xPos = (int) toEatList.get(j).x;
                                 int yPos = (int) toEatList.get(j).y;
                                 toEatList.remove(j);
-                                addFoodToList(toEatList, 11, xPos, yPos, 0);
+                                addFoodRandomToList(toEatList, 11, xPos, yPos, 0);
                                 break;
                             }
                             else if (j == toEatList.size() - 1) {
@@ -188,8 +197,44 @@ public class GameScreen extends Screen {
         }
     }
 
-    private void addFoodToList(ArrayList<Food> foodArrayList, int randomRange, int xPos, int yPos, int speed) {
+    private void addFoodRandomToList(ArrayList<Food> foodArrayList, int randomRange, int xPos, int yPos, int speed) {
         int food = mRandom.nextInt(randomRange);
+        if (food == ASPARAGUS) {
+            foodArrayList.add(new Asparagus(xPos, yPos, speed));
+        }
+        else if (food == BANANA) {
+            foodArrayList.add(new Banana(xPos, yPos, speed));
+        }
+        else if (food == BURGER) {
+            foodArrayList.add(new Burger(xPos, yPos, speed));
+        }
+        else if (food == CARROT) {
+            foodArrayList.add(new Carrot(xPos, yPos, speed));
+        }
+        else if (food == CHOCOLATE) {
+            foodArrayList.add(new Chocolate(xPos, yPos, speed));
+        }
+        else if (food == FISH) {
+            foodArrayList.add(new Fish(xPos, yPos, speed));
+        }
+        else if (food == ICECREAM) {
+            foodArrayList.add(new IceCream(xPos, yPos, speed));
+        }
+        else if (food == PIZZA) {
+            foodArrayList.add(new Pizza(xPos, yPos, speed));
+        }
+        else if (food == STEAK) {
+            foodArrayList.add(new Steak(xPos, yPos, speed));
+        }
+        else if (food == SUSHI) {
+            foodArrayList.add(new Sushi(xPos, yPos, speed));
+        }
+        else if (food == WATERMELON) {
+            foodArrayList.add(new Watermelon(xPos, yPos, speed));
+        }
+    }
+
+    private void addFoodSpecificToList(ArrayList<Food> foodArrayList, int food, int xPos, int yPos, int speed) {
         if (food == ASPARAGUS) {
             foodArrayList.add(new Asparagus(xPos, yPos, speed));
         }
