@@ -40,8 +40,8 @@ public class GameScreen extends Screen {
 
     private int score = 0;
     private int numberOfLives = 3;
-    private float starvingTimeMax = 50;
-    private float starvingTimeCurrent = 50;
+    private float starvingTimeMax = 40;
+    private float starvingTimeCurrent = 40;
     private float foodTime = 0;
     private float foodTimeCutOff = 0;
 
@@ -102,51 +102,47 @@ public class GameScreen extends Screen {
         int len = touchEvents.size();
         starvingTimeCurrent -= deltaTime;
         if (starvingTimeCurrent <= 0) {
+            Settings.addScore(score);
+            Settings.save(game.getFileIO());
             state = GameState.GameOver;
         }
 
         if (score >= 4000) {
-            starvingTimeMax = 20;
-        }
-        else if (score >= 3000) {
-            starvingTimeMax = 23;
+            starvingTimeMax = 15;
         }
         else if (score >= 2500) {
-            starvingTimeMax = 25;
+            starvingTimeMax = 18;
         }
         else if (score >= 2000) {
-            starvingTimeMax = 28;
+            starvingTimeMax = 20;
         }
         else if (score >= 1500) {
-            starvingTimeMax = 30;
+            starvingTimeMax = 23;
         }
         else if (score >= 1000) {
-            starvingTimeMax = 33;
+            starvingTimeMax = 25;
         }
         else if (score >= 800) {
-            starvingTimeMax = 35;
+            starvingTimeMax = 28;
         }
         else if (score >= 600) {
-            starvingTimeMax = 38;
+            starvingTimeMax = 30;
         }
         else if (score >= 400) {
-            starvingTimeMax = 40;
+            starvingTimeMax = 33;
         }
         else if (score >= 300) {
-            starvingTimeMax = 43;
+            starvingTimeMax = 35;
         }
         else if (score >= 200) {
-            starvingTimeMax = 45;
-        }
-        else if (score >= 100) {
-            starvingTimeMax = 48;
+            starvingTimeMax = 38;
         }
 
         foodTime += deltaTime;
         if (foodTime > foodTimeCutOff) {
-            addFoodRandomToList(foodList, 11, 1200, 540, 120);
+            addFoodRandomToList(foodList, 11, 1200, 540, 200);
             foodTime = 0;
-            foodTimeCutOff = 1;
+            foodTimeCutOff = (float) 0.6;
         }
 
 
