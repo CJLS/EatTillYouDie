@@ -53,6 +53,13 @@ public class LoadingScreen extends Screen {
         Assets.timeBar = g.newPixmap("timeBar.png", Graphics.PixmapFormat.ARGB4444);
         Assets.timeBarFull = g.newPixmap("timeBarFull.png", Graphics.PixmapFormat.ARGB4444);
         Assets.watermelon = g.newPixmap("watermelon.png", Graphics.PixmapFormat.ARGB4444);
+
+        Assets.bgMusic = game.getAudio().newMusic("candyland.ogg");
+
+        if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
+            Assets.bgMusic.play();
+        }
+
         Settings.load(game.getFileIO());
         game.setScreen(new MainMenuScreen(game));
     }

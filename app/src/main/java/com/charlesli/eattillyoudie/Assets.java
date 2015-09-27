@@ -1,5 +1,6 @@
 package com.charlesli.eattillyoudie;
 
+import com.charlesli.androidgames.framework.Music;
 import com.charlesli.androidgames.framework.Pixmap;
 
 /**
@@ -43,4 +44,6 @@ public class Assets {
     public static Pixmap ready;
     public static Pixmap resumeQuit;
     public static Pixmap gameOver;
+
+    public static Music bgMusic;
 }

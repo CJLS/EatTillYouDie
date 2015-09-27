@@ -11,4 +11,18 @@ public class EatTillYouDieGame extends AndroidGame {
     public Screen getStartScreen() {
         return new LoadingScreen(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(Assets.bgMusic != null && !Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
+            Assets.bgMusic.play();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Assets.bgMusic.stop();
+    }
 }
