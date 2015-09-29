@@ -56,6 +56,8 @@ public class LoadingScreen extends Screen {
 
         Assets.bgMusic = game.getAudio().newMusic("candyland.ogg");
 
+        Assets.click = game.getAudio().newSound("click.ogg");
+
         if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
             Assets.bgMusic.play();
         }

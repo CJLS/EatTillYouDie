@@ -29,6 +29,9 @@ public class HelpScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
+        if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
+            Assets.bgMusic.play();
+        }
         List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
         int len = touchEvents.size();
@@ -37,16 +40,25 @@ public class HelpScreen extends Screen {
             if (event.type == Input.TouchEvent.TOUCH_UP) {
                 if (helpScreenNumber == 1 && inBounds(event, nextButtonXpos, nextButtonYpos,
                         Assets.nextButton.getWidth(), Assets.nextButton.getHeight())) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     game.setScreen(new HelpScreen(game, 2));
                     return;
                 }
                 else if (helpScreenNumber == 2 && inBounds(event, nextButtonXpos, nextButtonYpos,
                         Assets.nextButton.getWidth(), Assets.nextButton.getHeight())) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     game.setScreen(new HelpScreen(game, 3));
                     return;
                 }
                 else if (helpScreenNumber == 3 && inBounds(event, cancelButtonXpos, cancelButtonYpos,
                         Assets.cancelButton.getWidth(), Assets.cancelButton.getHeight())) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     game.setScreen(new MainMenuScreen(game));
                     return;
                 }

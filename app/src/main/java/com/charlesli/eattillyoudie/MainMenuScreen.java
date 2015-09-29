@@ -50,6 +50,9 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
+        if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
+            Assets.bgMusic.play();
+        }
         List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
         int len = touchEvents.size();
@@ -58,16 +61,25 @@ public class MainMenuScreen extends Screen {
             if (event.type == TouchEvent.TOUCH_UP) {
                 if (inBounds(event, helpButtonXpos, helpButtonYpos, Assets.helpButton.getWidth(),
                         Assets.helpButton.getHeight())) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     game.setScreen(new HelpScreen(game, 1));
                     return;
                 }
                 else if (inBounds(event, playButtonXpos, playButtonYpos, Assets.playButton.getWidth(),
                         Assets.playButton.getHeight())) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     game.setScreen(new GameScreen(game));
                     return;
                 }
                 else if (inBounds(event, highscoresButtonXpos, highscoresButtonYpos, Assets.highScoresButton.getWidth(),
                         Assets.highScoresButton.getHeight())) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     game.setScreen(new HighScoresScreen(game));
                     return;
                 }

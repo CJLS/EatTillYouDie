@@ -81,6 +81,9 @@ public class GameScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
+        if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
+            Assets.bgMusic.play();
+        }
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         if(state == GameState.Ready)
             updateReady(touchEvents);
@@ -154,6 +157,9 @@ public class GameScreen extends Screen {
                 TouchEvent event = touchEvents.get(i);
                 if(event.type == TouchEvent.TOUCH_UP) {
                     if(inBounds(event, foodItem.x, foodItem.y, 75, 75)) {
+                        if(Settings.soundEnabled) {
+                            Assets.click.play(1);
+                        }
                         for (int j = 0; j < toEatList.size(); j++) {
                             if (foodItem.getClass() == toEatList.get(j).getClass()) {
                                 if (starvingTimeCurrent < starvingTimeMax - 2) {
@@ -196,6 +202,9 @@ public class GameScreen extends Screen {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {
                 if(inBounds(event, 1170, 730, 55, 55)) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     state = GameState.Paused;
                 }
             }
@@ -218,6 +227,9 @@ public class GameScreen extends Screen {
             TouchEvent event = touchEvents.get(i);
             if(event.type == TouchEvent.TOUCH_UP) {
                 if(event.x > 465 && event.x <= 810) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     if(event.y > 290 && event.y <= 360) {
                         state = GameState.Running;
                         return;

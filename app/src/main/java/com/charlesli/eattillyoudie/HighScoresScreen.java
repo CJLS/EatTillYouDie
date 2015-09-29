@@ -24,6 +24,9 @@ public class HighScoresScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
+        if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
+            Assets.bgMusic.play();
+        }
         List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
         int len = touchEvents.size();
@@ -32,6 +35,9 @@ public class HighScoresScreen extends Screen {
             if (event.type == Input.TouchEvent.TOUCH_UP) {
                 if (inBounds(event, 1150, 700, Assets.cancelButton.getWidth(),
                         Assets.cancelButton.getHeight())) {
+                    if(Settings.soundEnabled) {
+                        Assets.click.play(1);
+                    }
                     game.setScreen(new MainMenuScreen(game));
                     return;
                 }

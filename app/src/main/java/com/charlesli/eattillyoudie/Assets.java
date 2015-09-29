@@ -2,6 +2,7 @@ package com.charlesli.eattillyoudie;
 
 import com.charlesli.androidgames.framework.Music;
 import com.charlesli.androidgames.framework.Pixmap;
+import com.charlesli.androidgames.framework.Sound;
 
 /**
  * Created by Li on 2015/9/18.
@@ -46,4 +47,6 @@ public class Assets {
     public static Pixmap gameOver;
 
     public static Music bgMusic;
+
+    public static Sound click;
 }
