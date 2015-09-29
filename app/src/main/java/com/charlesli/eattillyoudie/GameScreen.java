@@ -81,9 +81,6 @@ public class GameScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
-        if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
-            Assets.bgMusic.play();
-        }
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         if(state == GameState.Ready)
             updateReady(touchEvents);

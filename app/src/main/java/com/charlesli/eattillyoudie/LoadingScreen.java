@@ -61,6 +61,9 @@ public class LoadingScreen extends Screen {
         if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
             Assets.bgMusic.play();
         }
+        if (!Assets.bgMusic.isLooping()) {
+            Assets.bgMusic.setLooping(true);
+        }
 
         Settings.load(game.getFileIO());
         game.setScreen(new MainMenuScreen(game));

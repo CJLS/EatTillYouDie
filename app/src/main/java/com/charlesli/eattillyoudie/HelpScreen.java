@@ -29,9 +29,6 @@ public class HelpScreen extends Screen {
 
     @Override
     public void update(float deltaTime) {
-        if (!Assets.bgMusic.isPlaying() && Settings.soundEnabled) {
-            Assets.bgMusic.play();
-        }
         List<Input.TouchEvent> touchEvents = game.getInput().getTouchEvents();
 
         int len = touchEvents.size();
